@@ -1,9 +1,9 @@
 from typing import Dict
 import logging
 
-from krxmarket.common.types import KrxCorp
-from krxmarket.dart.api import get_corp_code
-from krxmarket.krx.api import get_krx_all
+from .common.types import KrxCorp
+from .dart.api import get_corp_code
+from .krx.api import get_krx_all
 
 
 LOGGER = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ class StockCorps:
         for dart_info in get_corp_code():
             stock_code = dart_info['stock_code']
             if stock_code is not None:
-                if not stock_code in krx_corps:
+                if stock_code not in krx_corps:
                     # 보통 KRX 에서 상장 폐지 종목은 제외로 아래 warning
                     LOGGER.warning('cannot find dart stock code %s in krx(%s)',
                                    stock_code, dart_info)

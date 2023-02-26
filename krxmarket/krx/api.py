@@ -2,7 +2,7 @@ from typing import Dict, List
 from bs4 import BeautifulSoup
 
 from ..common.webrequest import request
-from krxmarket.common.types import KrxCorp, MarketType
+from ..common.types import KrxCorp, MarketType
 
 
 def get_stock_market_list(market_type: MarketType) -> List[KrxCorp]:
@@ -107,12 +107,11 @@ def get_krx_all(exclude_halt=True) -> Dict[str, KrxCorp]:
     for market_type in market_types:
         market_list = get_stock_market_list(market_type)
         for corp in market_list:
-            
             if corp.stock_code in halt_corps.keys():
                 corp.is_halt = True
                 corp.halt_reason = halt_corps[corp.stock_code]
 
             if not corp.is_halt or not exclude_halt:
                 corps[corp.stock_code] = corp
-    
+
     return corps
