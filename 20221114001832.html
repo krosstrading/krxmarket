@@ -1,0 +1,2351 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+	<title>
+	삼성전자/분기보고서/2022.11.14
+	</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scaleable=no">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	
+	
+
+
+	
+<script type="text/javascript" src="/resource/js/jquery-3.3.1.min.js"></script>
+
+<link rel="stylesheet" href="/js/jquery-ui/jquery-ui.min.css">
+<script type="text/javascript" src="/js/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- 2011.11.01 ext 2.3 -->
+<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/js/ext-main/resources/css/ext-all-ie8.css" /><![endif]-->
+<script type="text/javascript" src="/js/ext-main/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="/js/ext-main/ext-all.js"></script>
+
+<!-- x-xeries js libraries  -->
+<script type="text/javascript" src="/js/xjs.js?ver=1.17"></script>
+
+<!-- application js libraries -->
+<script type="text/javascript" src="/js/jsval.js" ></script>
+
+<!-- 웹표준 추가 스크립트-->
+<script type="text/javascript" src="/js/jquery/gotop.js"></script>
+
+<!-- 웹표준화적용사항 위반으로 DSAB001L.jsp에서 헤드로 위치 이동 -->
+<style type="text/css">
+.checked-icon {background-image: url(/images/temp/add.gif);}
+.ui-autocomplete {max-height: 100px; overflow-y: auto; overflow-x: hidden;}
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {background: #eaeaea !important; border: none; color:#333;}
+</style>
+<!--end -->
+
+<!-- 추가 되는 js, css 시작 -->
+<link rel="stylesheet" href="/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resource/css/slick.css">
+<link rel="stylesheet" href="/js/jsTree/default/style.css" />
+<link rel="stylesheet" href="/resource/css/bootstrap-datepicker3.css">
+<script type="text/javascript" src="/resource/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/resource/js/slick.min.js"></script>
+<script type="text/javascript" src="/js/jsTree/jstree.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datepicker.kr.min.js"></script>
+<script type="text/javascript" src="/js/idart/idart.js"></script><!-- idart용 -->
+<!-- 추가 되는 js, css 끝 -->
+
+<script type="text/javascript">
+function loadHistoryContents() {
+	xajax.initParameter();
+	xajax.blockUI = false;
+	xajax.simpleSend("/dsaf001/history.ax", function(html) {
+		$j("#wingWrap").html(html);
+	});
+}
+
+</script>
+<script type="text/javascript">
+(
+	function(){
+		var s=function(){
+				__flash__removeCallback=function(i,n){if(i)i[n]=null;
+			};window.setTimeout(s,10);
+		};s();
+	}
+)();
+</script>
+
+<script type="text/javascript">
+function otherGongsi(){
+	var f_select = document.getElementById("f_select");
+	var link = f_select.options[f_select.selectedIndex].value;
+	if(link != "f_slt_1"){
+		window.open(link);
+	}
+	if(link == "f_slt_1"){
+		alert("해외전자공시를 선택해주세요");
+	}
+}
+</script>
+	
+
+	
+<link id="commonCss" rel="stylesheet" href="/css/common.css?ver=1.29" />
+<link id="userCssWeb" rel="stylesheet" href="/css/web.css?ver=1.170" />
+<link id="userCssTab" rel="stylesheet" href="/css/tablet.css?ver=1.92" />
+<link id="userCssMob" rel="stylesheet" href="/css/mobile.css?ver=1.167" />
+
+<script type="text/javascript" src="/js/common.js?ver=1.137"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/css/viewer/report_dart.css" charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/viewer/report_pop.css" charset="utf-8">
+    
+    <script type="text/javascript" src="/js/viewer/popup.js?ver=1"></script>
+    <script type="text/javascript" src="/js/detectmobilebrowser.js"></script>
+
+ 	<script type="text/javascript">
+ 	if(isMobile() == false && $j(window).width() <= 1050){
+ 		$j(window)[0].resizeTo(1200, $j(window).height());
+ 	} 
+ 	
+	var winTestNotice = null;	// xwindow object
+	var divTestNotice = "divTestNoticeWin";	// ajax 수신 div
+	var isCurrentDocType = 0; //전체 문서모드,  1:전체목차, 2:현재목차, 3:현재목차->전체목차
+	var currentEleId = 1 	//현재 목차위치
+	var isTreeSearch = false;
+	
+	$j(document).ready(function() {
+		$j(window).resize(function(){
+			//$j(".contents, .contentsWide").resize(resizeFrame);
+			$j(".contWrap").resize(resizeFrame);
+			resizeFrame();
+		}).resize();
+		
+		if('' != ''){
+			$j('#search').val('');
+		}
+		initPage();
+		
+		
+		if(isMobileSize()){
+			fn_wideBtnHide();
+		}
+		
+		if(isInApp()) {
+			$j('#print').hide();
+		}
+		
+		if(navigator.userAgent.match(/like Mac OS/i)) {
+			$j(".contentsWrap, .viewWrap, .leftPanelWrap, .leftPanel").addClass("safari");
+		}
+		
+		
+	});
+	
+	var resizeFrame = function() {
+		w	= parseInt($j(".viewWrap").css("width"));
+		h	= parseInt($j(".viewWrap").css("height"));
+
+		
+			
+			
+		
+
+		var wideBtnClass = $j("#wideBtn").attr("class");
+		if(isMobileSize()) {
+			if (wideBtnClass == "btn_wide_on") {
+				fn_toggleWide($j("#wideBtn"));
+			}
+		} else {
+			if (wideBtnClass == "btn_wide_off") {
+				fn_toggleWide($j("#wideBtn"));
+			}
+		}
+		$j("#ifrm").css("height", h + "px");
+	};
+	
+	function fn_wideBtnHide(){
+		$j('.leftPanelWrap').hide();
+		$j('#wideBtn').removeClass('btn_wide_on');
+		$j('#wideBtn').addClass('btn_wide_off');
+		$j('#wideBtn').parent().removeClass('contents');
+		$j('#wideBtn').parent().addClass('contentsWide');
+		$j('#wideBtn').parent().show();
+	}
+	
+	function initPage() {
+		//initCorpInfo();	// 기업개황팝업 초기화
+		initLayerNew('winCorpInfo');
+		
+		var cnt = 0;
+		var treeData = [];
+		
+		
+			var node1 = {};
+			node1['text'] = "분 기 보 고 서";
+			node1['id'] = "1";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "1";
+			node1['offset'] = "674";
+			node1['length'] = "4052";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "1";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+			
+			
+			
+			
+				
+				
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "【 대표이사 등의 확인 】";
+			node1['id'] = "2";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "2";
+			node1['offset'] = "25653";
+			node1['length'] = "401";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "2";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+			
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "I. 회사의 개요";
+			node1['id'] = "3";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "3";
+			node1['offset'] = "26058";
+			node1['length'] = "3289";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "3";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 회사의 개요";
+				node2['id'] = "4"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "4";
+				node2['offset'] = "26157";
+				node2['length'] = "937";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "4";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 회사의 연혁";
+				node2['id'] = "5"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "5";
+				node2['offset'] = "27098";
+				node2['length'] = "374";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "5";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "3. 자본금 변동사항";
+				node2['id'] = "6"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "6";
+				node2['offset'] = "27476";
+				node2['length'] = "197";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "6";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "4. 주식의 총수 등";
+				node2['id'] = "7"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "7";
+				node2['offset'] = "27677";
+				node2['length'] = "1286";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "7";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "5. 정관에 관한 사항";
+				node2['id'] = "8"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "8";
+				node2['offset'] = "28967";
+				node2['length'] = "366";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "8";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "II. 사업의 내용";
+			node1['id'] = "9";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "9";
+			node1['offset'] = "29351";
+			node1['length'] = "137024";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "9";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 사업의 개요";
+				node2['id'] = "10"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "10";
+				node2['offset'] = "29689";
+				node2['length'] = "2399";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "10";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 주요 제품 및 서비스";
+				node2['id'] = "11"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "11";
+				node2['offset'] = "32092";
+				node2['length'] = "4212";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "11";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "3. 원재료 및 생산설비";
+				node2['id'] = "12"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "12";
+				node2['offset'] = "36308";
+				node2['length'] = "41160";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "12";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "4. 매출 및 수주상황";
+				node2['id'] = "13"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "13";
+				node2['offset'] = "77472";
+				node2['length'] = "23266";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "13";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "5. 위험관리 및 파생거래";
+				node2['id'] = "14"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "14";
+				node2['offset'] = "100742";
+				node2['length'] = "7173";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "14";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "6. 주요계약 및 연구개발활동";
+				node2['id'] = "15"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "15";
+				node2['offset'] = "107919";
+				node2['length'] = "18986";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "15";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "7. 기타 참고사항";
+				node2['id'] = "16"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "16";
+				node2['offset'] = "126909";
+				node2['length'] = "39426";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "16";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "III. 재무에 관한 사항";
+			node1['id'] = "17";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "17";
+			node1['offset'] = "166379";
+			node1['length'] = "1007737";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "17";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 요약재무정보";
+				node2['id'] = "18"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "18";
+				node2['offset'] = "166506";
+				node2['length'] = "20651";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "18";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 연결재무제표";
+				node2['id'] = "19"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "19";
+				node2['offset'] = "187407";
+				node2['length'] = "81725";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "19";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "3. 연결재무제표 주석";
+				node2['id'] = "20"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "20";
+				node2['offset'] = "269136";
+				node2['length'] = "355281";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "20";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "4. 재무제표";
+				node2['id'] = "21"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "21";
+				node2['offset'] = "624421";
+				node2['length'] = "54247";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "21";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "5. 재무제표 주석";
+				node2['id'] = "22"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "22";
+				node2['offset'] = "678672";
+				node2['length'] = "285592";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "22";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "6. 배당에 관한 사항";
+				node2['id'] = "23"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "23";
+				node2['offset'] = "964294";
+				node2['length'] = "12773";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "23";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "7. 증권의 발행을 통한 자금조달에 관한 사항";
+				node2['id'] = "24"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "24";
+				node2['offset'] = "977071";
+				node2['length'] = "58229";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "24";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "8. 기타 재무에 관한 사항";
+				node2['id'] = "27"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "27";
+				node2['offset'] = "1035304";
+				node2['length'] = "138798";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "25";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "IV. 이사의 경영진단 및 분석의견";
+			node1['id'] = "28";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "28";
+			node1['offset'] = "1174120";
+			node1['length'] = "241";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "26";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+			
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "V. 회계감사인의 감사의견 등";
+			node1['id'] = "29";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "29";
+			node1['offset'] = "1174365";
+			node1['length'] = "29377";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "27";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 외부감사에 관한 사항";
+				node2['id'] = "30"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "30";
+				node2['offset'] = "1174494";
+				node2['length'] = "29026";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "28";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 내부통제에 관한 사항";
+				node2['id'] = "31"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "31";
+				node2['offset'] = "1203524";
+				node2['length'] = "204";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "29";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "VI. 이사회 등 회사의 기관에 관한 사항";
+			node1['id'] = "32";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "32";
+			node1['offset'] = "1203746";
+			node1['length'] = "2196";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "30";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 이사회에 관한 사항";
+				node2['id'] = "33"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "33";
+				node2['offset'] = "1203859";
+				node2['length'] = "561";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "31";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 감사제도에 관한 사항";
+				node2['id'] = "34"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "34";
+				node2['offset'] = "1204424";
+				node2['length'] = "936";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "32";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "3. 주주총회 등에 관한 사항";
+				node2['id'] = "35"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "35";
+				node2['offset'] = "1205364";
+				node2['length'] = "564";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "33";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "VII. 주주에 관한 사항";
+			node1['id'] = "36";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "36";
+			node1['offset'] = "1205946";
+			node1['length'] = "62085";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "34";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+			
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "VIII. 임원 및 직원 등에 관한 사항";
+			node1['id'] = "37";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "37";
+			node1['offset'] = "1268035";
+			node1['length'] = "819865";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "35";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 임원 및 직원 등의 현황";
+				node2['id'] = "38"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "38";
+				node2['offset'] = "1268147";
+				node2['length'] = "818755";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "36";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 임원의 보수 등";
+				node2['id'] = "39"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "39";
+				node2['offset'] = "2086906";
+				node2['length'] = "980";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "37";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "IX. 계열회사 등에 관한 사항";
+			node1['id'] = "40";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "40";
+			node1['offset'] = "2087904";
+			node1['length'] = "580";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "38";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+			
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "X. 대주주 등과의 거래내용";
+			node1['id'] = "41";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "41";
+			node1['offset'] = "2088488";
+			node1['length'] = "54013";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "39";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+			
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "XI. 그 밖에 투자자 보호를 위하여 필요한 사항";
+			node1['id'] = "42";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "42";
+			node1['offset'] = "2142505";
+			node1['length'] = "48638";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "40";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 공시내용 진행 및 변경사항";
+				node2['id'] = "43"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "43";
+				node2['offset'] = "2142646";
+				node2['length'] = "148";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "41";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 우발부채 등에 관한 사항";
+				node2['id'] = "44"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "44";
+				node2['offset'] = "2142798";
+				node2['length'] = "46581";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "42";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "3. 제재 등과 관련된 사항";
+				node2['id'] = "45"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "45";
+				node2['offset'] = "2189383";
+				node2['length'] = "384";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "43";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "4. 작성기준일 이후 발생한 주요사항 등 기타사항";
+				node2['id'] = "46"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "46";
+				node2['offset'] = "2189771";
+				node2['length'] = "1358";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "44";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "XII. 상세표";
+			node1['id'] = "47";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "47";
+			node1['offset'] = "2191147";
+			node1['length'] = "88437";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "45";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 연결대상 종속회사 현황(상세)";
+				node2['id'] = "48"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "48";
+				node2['offset'] = "2191271";
+				node2['length'] = "381";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "46";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 계열회사 현황(상세)";
+				node2['id'] = "49"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "49";
+				node2['offset'] = "2191656";
+				node2['length'] = "362";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "47";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "3. 타법인출자 현황(상세)";
+				node2['id'] = "50"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "50";
+				node2['offset'] = "2192022";
+				node2['length'] = "367";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "48";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "4. 연구개발실적(상세)";
+				node2['id'] = "51"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "51";
+				node2['offset'] = "2192393";
+				node2['length'] = "87177";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "49";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+			var node1 = {};
+			node1['text'] = "【 전문가의 확인 】";
+			node1['id'] = "52";
+			node1['rcpNo'] = "20221114001832";
+			node1['dcmNo'] = "8870996";
+			node1['eleId'] = "52";
+			node1['offset'] = "2279588";
+			node1['length'] = "337";
+			node1['dtd'] = "dart3.xsd";
+			node1['tocNo'] =  "50";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+			
+			cnt++;
+			
+			
+				node1['children'] = [];
+			
+			
+			
+				var node2 = {};
+				node2['text'] = "1. 전문가의 확인";
+				node2['id'] = "53"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "53";
+				node2['offset'] = "2279680";
+				node2['length'] = "112";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "51";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+				var node2 = {};
+				node2['text'] = "2. 전문가와의 이해관계";
+				node2['id'] = "54"; 	
+				node2['rcpNo'] = "20221114001832";
+				node2['dcmNo'] = "8870996";
+				node2['eleId'] = "54";
+				node2['offset'] = "2279796";
+				node2['length'] = "115";
+				node2['dtd'] = "dart3.xsd";
+				node2['tocNo'] =  "52";  //eleId 가 toc 순번하고 동일 하지 않은 문서가 존재함.
+				
+				cnt++;
+				
+				
+				
+				
+				
+				node1['children'].push(node2);
+				
+			
+			
+			
+			
+			treeData.push(node1);
+		
+		
+		//js tree
+		var jsTree = $j('#listTree').jstree({
+			'core' : {
+				'multiple' : false,
+				'themes' : {
+					'icons' : false
+				},
+				'data' : treeData
+			}
+		});
+		
+		jsTree.on('loaded.jstree', function(){
+			if (cnt > 200) {
+				//treeRoot.expand();
+				
+					$j(this).jstree('select_node', 'ul > li:first');
+				
+				
+			} else {
+				$j(this).jstree('open_all');
+				
+					$j(this).jstree('select_node', 'ul > li:first');
+				
+				
+			}
+			jsTree.on("select_node.jstree", function (e, data) {
+				var original = data.node.original;
+				
+				if(data.selected.length) {
+					if(isCurrentDocType == 3){
+						viewDoc(original.rcpNo, original.dcmNo, original.eleId, original.offset, original.length, original.dtd,'',3);
+					}else if(isCurrentDocType == 2){
+						if(currentEleId != original.eleId) {
+							currentEleId = original.eleId;
+							viewDoc(original.rcpNo, original.dcmNo, original.eleId, original.offset, original.length, original.dtd,'',3);	
+						}						
+					}else if(isCurrentDocType == 1){
+						//전체문서모드인경우에는 선택된 노드 정보를 set 해 준다.
+						currentDocValues.rcpNo = original.rcpNo;
+						currentDocValues.dcmNo = original.dcmNo;
+						currentDocValues.eleId = original.eleId;
+						currentDocValues.offset = original.offset;
+						currentDocValues.length = original.length;
+						currentDocValues.dtd = original.dtd;
+						currentDocValues.keyword = original.keyword;
+						
+						fn_moveNode(original.tocNo);
+					}
+					
+					if(isMobileSize()){
+						fn_wideBtnHide();
+					}
+				}
+			});
+		});
+		
+		if(cnt == 0){
+			$j('.leftPanelWrap, #wideBtn').hide();
+			$j('.contents').addClass('contentsWide');
+			$j('.contents').removeClass('contents');
+		}
+		
+		
+			
+			
+				viewDoc('20221114001832', '8870996', '1', '674', '4052', 'dart3.xsd','');
+			
+			
+		
+	
+		$j("#center-panel > div > div").resize(resizeFrame);
+		 resizeFrame();
+	
+		//팝업 순서
+		//1.정정 관련 보고서
+		//2.핵심투자 관련 보고서
+		/* showWinCommMsg("주의!!!", "자본시장과 금융투자업에 관한 법률 제164조에 따라 정정명령이 부과되었으니<br> 투자판단에 참고하시기 바랍니다.",'L');
+		showWinCommMsg("주의!!!", "자본시장과 금융투자업에 관한 법률 제164조에 따라 정정명령이 부과되었으니<br> 투자판단에 참고하시기 바랍니다.",'M');
+		showWinCommMsg("주의!!!", "자본시장과 금융투자업에 관한 법률 제164조에 따라 정정명령이 부과되었으니<br> 투자판단에 참고하시기 바랍니다.",'S'); */
+		
+		
+		
+			
+			
+			
+			
+			
+		
+	
+		alertInvestNotice('20221114001832', '8870996', '20221114001654', '0', '11013' ,'dart3.xsd');
+		alertSmallPublicOffering('N');
+		
+		
+		
+		
+		
+		
+		
+	
+		window.focus();
+	
+		try {
+			opener.loadHistoryContents();
+		} catch (e) {
+			;
+		}
+	}
+
+	function replaceHtml(el, html) {
+		var oldEl = (typeof el === "string" ? document.getElementById(el) : el);
+		var newEl = oldEl.cloneNode(false);
+		newEl.innerHTML = html;
+		oldEl.parentNode.replaceChild(newEl, oldEl);
+		return newEl;
+	};
+	
+	/* ########################
+	    # 문서검색 스크립트 
+	    ######################## 
+	*/
+	var isComplet = false; // 하이라이트 생성완료 유무
+	var keywords;
+	var currentDocValues = {rcpNo: "", dcmNo: "", eleId: "", offset: "", length: "", dtd: ""};
+	
+	function viewDoc(rcpNo, dcmNo, eleId, offset, length, dtd) {
+		isCurrentDocType = 2;
+		currentDocValues.rcpNo = rcpNo;
+		currentDocValues.dcmNo = dcmNo;
+		currentDocValues.eleId = eleId;
+		currentDocValues.offset = offset;
+		currentDocValues.length = length;
+		currentDocValues.dtd = dtd;
+		
+		var params = "";
+		params += "?rcpNo=" + rcpNo;
+		params += "&dcmNo=" + dcmNo;
+		if (eleId != null)
+			params += "&eleId=" + eleId;
+		if (offset != null)
+			params += "&offset=" + offset;
+		if (length != null)
+			params += "&length=" + length;
+		params += "&dtd=" + dtd;
+		
+		var url = "/report/viewer.do";
+
+		document.getElementById("ifrm").src = url + params;
+	}
+	
+	// keyword 검색
+	function viewDocKeyword(rcpNo, dcmNo, eleId, offset, length, dtd) { //type : 문서모드.
+		var keyword = $j('#search').val().trim();
+		isCurrentDocType = 3;
+		keyword = decodeURIComponent(keyword);
+	
+		currentDocValues.rcpNo = rcpNo;
+		currentDocValues.dcmNo = dcmNo;
+		currentDocValues.eleId = eleId;
+		currentDocValues.offset = offset;
+		currentDocValues.length = length;
+		currentDocValues.dtd = dtd;
+		currentDocValues.keyword = keyword;
+		var params = "";
+		params += "?rcpNo=" + rcpNo;
+		params += "&dcmNo=" + dcmNo;
+		if (eleId != null)
+			params += "&eleId=" + eleId;
+		if (offset != null)
+			params += "&offset=" + offset;
+		if (length != null)
+			params += "&length=" + length;
+		params += "&dtd=" + dtd;
+		params += "&keyword=" + encodeURIComponent(keyword);
+		params += "&fileMaxLength=999999990";
+		src = "/reportKeyword/viewer.do" + params;
+		document.getElementById("ifrm").src = "/reportKeyword/viewer.do" + params;
+	}
+	
+	//전체 목차 검색
+	function viewDocAll(rcpNo, dcmNo, eleId, offset, length, dtd) { //type : 문서모드.
+		
+		var keyword = $j('#search').val().trim();
+		isCurrentDocType = 1;
+		keyword = decodeURIComponent(keyword);
+	
+		currentDocValues.rcpNo = rcpNo;
+		currentDocValues.dcmNo = dcmNo;
+		currentDocValues.eleId = eleId;
+		currentDocValues.offset = offset;
+		currentDocValues.length = length;
+		currentDocValues.dtd = dtd;
+		currentDocValues.keyword = keyword;
+		var params = "";
+		params += "?rcpNo=" + rcpNo;
+		params += "&dcmNo=" + dcmNo;
+		if (eleId != null)
+			params += "&eleId=" + eleId;
+		if (offset != null)
+			params += "&offset=" + offset;
+		if (length != null)
+			params += "&length=" + length;
+		params += "&dtd=" + dtd;
+		params += "&keyword=" + encodeURIComponent(keyword);
+		params += "&fileMaxLength=999999990";
+		src = "/reportKeyword/viewer.do" + params;
+		document.getElementById("ifrm").src = "/reportKeyword/viewer.do" + params;
+	}
+	//전체 목차 검색 end
+
+	function printDoc() {
+
+		var printFrame = document.getElementById('ifrm');
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('trident') > -1){
+			ifrm.focus();
+		}else{
+			printFrame.focus();
+		}
+		var prependHTML = '';
+		prependHTML += '<div id="printDocTitle">';
+		prependHTML += '삼성전자' + ' / ';
+		prependHTML += $j('#family option:selected').text() + ' ';
+		prependHTML += '</div>';
+
+		$j('#ifrm').contents().find('body').prepend(prependHTML) // title추가
+		printFrame.contentWindow.print();
+		$j('#ifrm').contents().find('#printDocTitle').remove(); // 다시 title삭제
+	}
+	
+	function reloadDoc() {
+		viewDoc(currentDocValues.rcpNo, currentDocValues.dcmNo, currentDocValues.eleId, currentDocValues.offset, currentDocValues.length, currentDocValues.dtd);
+	}
+	
+	function changeDoc(val) {
+		document.fmove.action="/dsaf001/main.do?" + val;
+		document.fmove.submit();	
+	}
+	
+	function changeNewDoc(val) {
+		window.open("/dsaf001/main.do?"+ val,'resizable=no, status=no, scrollbars=no','width=1200, height=810');
+	}
+	
+	function changeFamily(val) {
+		if (val=="null") return;
+		changeDoc(val);
+		$j("#att").val("null");
+		$j("#ref").val("null");
+	}
+	
+	function changeRef(val) {
+		if (val=="null") return;
+		changeDoc(val);
+		$j("#att").val("null");
+		$j("#family").val("null");
+	}
+	
+	function changeAtt(val) {
+		if (val=="null") return;
+		changeDoc(val);
+		$j("#ref").val("null");
+		$j("#family").val("null");
+	}
+	
+	function changeHis(val) {
+		if (val=="null") return;
+		changeNewDoc(val);
+		$j("#history").val("null");
+		$j("#family").val("null");
+	}
+	
+	/**
+	 * PDF 다운로드 : 서비스 중지 메시지 보이기
+	 */
+	function openPdfDownload(rcpNo, dcmNo) {
+		 
+			
+			var size = getOpenSize(530, 480);
+			var url = "/pdf/download/main.do?rcp_no=" + rcpNo + "&dcm_no=" + dcmNo;
+			var win = window.open( url, 'DOWNLOAD', ''+size+', resizable=no, status=no, scrollbars=no');
+			if(win == null){
+				alert("팝업차단을 해제해주세요.");
+			}else{
+				win.focus();
+			}
+			
+			
+		
+	}
+	
+	/**
+	 * 사용자가 '예'를 선택했을 때 최종문서로 이동한다.
+	 */
+	function confirmFinalDoc(bnt){
+	
+		var rcp_no = "" ;
+		if(bnt=='yes'){
+			
+				
+					if(rcp_no == ""){
+						rcp_no = 20221114001832;
+					}
+				
+			
+			changeFamily("rcpNo="+rcp_no);
+		}
+	}
+	
+	function scrapFeed(cik) {
+	    var rssValue = "";
+	    if(cik == "today"){
+	    	rssValue = "https://dart.fss.or.kr/api/todayRSS.xml";
+	    }
+	    else{
+	    	rssValue = "https://dart.fss.or.kr/api/companyRSS.xml?crpCd=" + cik;
+	    }
+	
+	    if(window.clipboardData){  // IE처리
+	    	if (window.clipboardData.setData("Text", rssValue)) {
+	        	alert('클립보드에 복사되었습니다');
+	    	}
+	    }
+	    else {                     // 비IE 처리
+	    	window.prompt ("Ctrl+C를 눌러 클립보드로 복사하세요", rssValue);
+	    }
+	}
+	
+	var index = 0;
+	$j.extend(
+		$j.expr[":"], { 
+			"containsIN": function(elem, i, match, array) { 
+				return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0; 
+			} 
+		}
+	);
+	
+	function fn_toggleWide(obj){
+		if($j('.leftPanelWrap').is(':visible')){
+			$j('.leftPanelWrap').hide();
+			$j(obj).removeClass('btn_wide_on');
+			$j(obj).addClass('btn_wide_off');
+			$j(obj).parent().removeClass('contents');
+			$j(obj).parent().addClass('contentsWide');
+			$j(obj).parent().show();
+		}else{
+			
+			$j('.leftPanelWrap').show();			
+			$j(obj).removeClass('btn_wide_off');
+			$j(obj).addClass('btn_wide_on');
+			$j(obj).parent().removeClass('contentsWide');
+			$j(obj).parent().addClass('contents');
+			
+		}
+	}
+	
+	function subPopView (id) {
+		$j("#" + id).show();
+			
+	}
+	
+	function popClose(id) {
+		$j("#" + id).hide();
+	}
+	
+	function fn_moveNode(tocNo){
+		var tocName = 'toc'+tocNo;
+		var toc = $j("#ifrm").contents().find("a[name="+ tocName +"]");
+		if(toc.length > 0){
+			var scrollTop = $j('#ifrm').contents().find('a[name='+tocName+']').offset().top;
+			$j('#ifrm').contents().scrollTop(scrollTop);
+		}
+	}
+	
+	/* ########################
+    	# 문서검색 스크립트 
+   		######################## 
+	*/
+	
+	/* 문서 하이라이트 생성 */	
+	function fn_makeHighlight() {
+		
+		index = 0;
+		var txt = $j("#search").val().trim();
+		currentDocValues.keyword = txt;
+		highlightCls = $j("#ifrm").contents().find('.highlight');
+
+		for(var i=0; i<highlightCls.length;i++) {
+			var parent = highlightCls.eq(i).parent();
+			parent.text(parent.text());
+		}
+		if(txt.length == 0){
+			return;
+		}
+		keywords =$j("#ifrm").contents().find(":contains('" + txt +"')").filter(function(i, item){
+			return $j(item).find(":contains('" + txt +"')").length === 0;
+		});
+		if(keywords.length > 0){
+			for(var i = 0; i < keywords.length;i++) {
+				var words = keywords.eq(i).text();
+				var wordIndexOf = words.toLowerCase().indexOf(txt.toLowerCase());
+				var wordPointer = 0;
+				var str = "";
+				
+				for(;wordIndexOf > -1;wordIndexOf = words.toLowerCase().indexOf(txt.toLowerCase(), wordIndexOf+txt.length)){
+					str += words.substring(wordPointer, wordIndexOf);
+					str += '<span class="highlight">' + words.substring(wordIndexOf, wordIndexOf+ txt.length) + '</span>';
+					wordPointer = wordIndexOf+txt.length;
+				}
+				str += words.substring(wordPointer, words.length);
+				keywords.eq(i).html(str);
+			}
+			
+			highlightCls = $j("#ifrm").contents().find('.highlight');
+			$j(highlightCls).each(function(c,obj){
+				if($j(obj).offset().top >= $j('#ifrm').contents().scrollTop()){
+					fn_moveHighlight(c);
+					return false;
+				}
+			});			
+		}
+		
+		// 문서 하이라이드 생성 완료된 후에 스크린 삭제
+		isComplet = true;
+	}
+	
+	/* 검색어 다음이동 */
+	function fn_next() {
+		if(searchVal != $j("#search").val()){
+			alert("검색어를 수정하였습니다. 검색을 먼저 하시기 바랍니다.");
+			return;
+		}
+		highlightCls = $j("#ifrm").contents().find('.highlight');
+		if(highlightCls != null && highlightCls.length > 0){
+			index++;
+			if(highlightCls.length == index){
+				index = 0;
+			}
+			fn_moveHighlight(index);
+		}
+	}
+	
+	/* 검색어 이전이동 */
+	function fn_prev() {
+		if(searchVal != $j("#search").val()){
+			alert("검색어를 수정하였습니다. 검색을 먼저 하시기 바랍니다.");
+			return;
+		}
+		highlightCls = $j("#ifrm").contents().find('.highlight');
+		if(highlightCls != null && highlightCls.length > 0){
+			index--;
+			if(index < 0 ){
+				index = highlightCls.length-1;
+			}
+			fn_moveHighlight(index);
+		}
+	}
+	
+	function fn_moveHighlight(idx){
+		index = idx;
+		
+		highlightCls = $j("#ifrm").contents().find('.highlight');
+		if($j(highlightCls[index]).offset() != null && $j(highlightCls[index]).offset().top != null){
+			highlightCls.removeClass('on');
+			$j(highlightCls[index]).addClass('on');
+			
+			var ifrmTop = $j('#ifrm').contents().scrollTop();
+			var ifrmBottom = ifrmTop + $j('#ifrm').height();
+			var highlightTop = $j(highlightCls[index]).offset().top;
+			var highlightBottom = highlightTop + $j(highlightCls[index]).height();
+			$j('#ifrm').contents().scrollTop(highlightTop);
+			
+			// 가로 영역 맞추기
+			var offsetWidth = highlightCls[index].offsetWidth;
+			var offsetLeft = $j(highlightCls[index]).offset().left;
+			var offsetRight = offsetLeft + offsetWidth;
+			var ifrmWidth = $j('#ifrm').width();
+			var ifrmLeft = $j('#ifrm').contents().scrollLeft();
+			var ifrmRight = ifrmLeft + ifrmWidth;
+			
+			if(ifrmWidth < offsetRight + 30){
+				$j('#ifrm').contents().scrollLeft(offsetRight - ifrmWidth + 30);
+			}else{
+				$j('#ifrm').contents().scrollLeft(0);
+			}
+		}else{
+			fn_makeHighlight();
+		}
+		
+		if(fn_isMobileApp()=="pc"){
+			$j('#contentsWrapDiv').css('height','calc(100vh - 115px)');
+		}
+		
+	}
+	
+	/* iframe load */
+	function fn_iframeLoaded(){
+		$j('#ifrm').contents().on('click','a[target]', newWindowEvent);
+		
+		if(isTreeSearch == true && $j("#search").val().trim() !="" && currentDocValues.keyword != '' && currentDocValues.keyword != undefined){
+			fn_makeHighlight();
+			var highlightCls = $j("#ifrm").contents().find('.highlight');
+			
+			if(highlightCls.length == 0 ){
+				alert("일치하는 검색어["+currentDocValues.keyword+"]가 없습니다.");
+			}
+
+			if(isComplet){
+				$j("#loadingMask").hide();
+				$j("#loadingWrap").hide();
+				isTreeSearch = false;
+			}		
+		}
+		
+		$j('#ifrm').contents().find('head').append('<style>span.highlight {background-color:#ffff00;} span.highlight.on {background-color:#ffb700;}</style>');
+		
+		$j('#ifrm').contents().find("img").each(function() {
+			$j(this).attr("onclick", "parent.winImgRealSize('"+$j(this).attr("src")+"');");
+			$j(this).css("cursor", "zoom-in");
+		});
+		
+		// 임시 (기존 생성된 이미지 원본보기 때문)->html 전체 삭제하면 괜찮을텐데...
+		$j('#ifrm').contents().find("div[name='imgDiv']").remove();
+		
+		// 거래소 통합공시 경우 일부 태그 스타일 초기화(nrseo.LR-Chm-2021-00141)
+		if ("dart3.xsd" == "HTML") {
+			$j('#ifrm').contents().find(".xforms td").each(function() {
+				var inStyle = $j(this).attr("style");
+				if (inStyle == null || inStyle.indexOf("text-align") == -1) {
+					$j(this).css("text-align", "left");
+				}
+			});
+			$j('#ifrm').contents().find(".xforms span").each(function() {
+				var inStyle = $j(this).attr("style");
+				if (inStyle == null || inStyle.indexOf("display") == -1) {
+					$j(this).css("display", "inline");
+				}
+			});
+		}
+		if ($j("#ifrm").contents().find("a[name=keyword]").length) {
+			var keywordOffset = $j("#ifrm").contents().find("a[name=keyword]").eq(0).offset();
+			$j('#ifrm').contents().find("html, body").scrollTop(keywordOffset.top);
+		}
+	}
+	
+	var winImg;
+	winImgRealSize = function(src, bcColor, maxWidth) {
+		if (typeof bgColor === "undefined") {
+			bgColor = "#000";
+		}
+		if (typeof maxWidth === "undefined") {
+			maxWidth = "1100px";
+		}
+		
+		if (winImg && !winImg.closed) {
+			winImg.close();
+		}
+		
+		winImg = window.open("", "imgRealSizeBox");
+		winImg.document.write("<html><head><title>이미지새창보기</title><meta name=\"viewport\" content=\"user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, width=device-width\"/></head>" +
+				"<body style=\"margin:0;background:"+bgColor+";height:100%;\" onclick=\"window.close('imgRealSizeBox');\"><table border=\"0\" width=\"100%\" height=\"100%\"><tr><td valign=\"middle\" align=\"center\">" +
+						"<img style=\"position:relative;z-index:2;width:100%;max-width:"+maxWidth+";\" src=\""+src+"\"/></td></tr></table></body></html>");
+	};
+	
+	var searchVal = "";
+	function fn_Search(){
+
+		var searchGubun = $j('input:radio[name=searchGubun]:checked').val();
+		var txt = $j('#search').val().trim();
+		if(txt == ''){
+			alert('검색어를 입력해 주세요.');
+			return;
+		}
+		if(searchGubun == 1 && $j('#listTree').jstree()._cnt > 1 && confirm('전체문서내검색 시 파일용량이 커서 검색이 느릴 수 있습니다.\n그래도 검색하시겠습니까?')==false){
+			return;
+		}
+		currentDocValues.keyword = txt;
+		
+		isTreeSearch = true;
+		isComplet = false;
+		$j("#loadingMask").show();
+		$j("#loadingWrap").show();
+		
+		/*search gubun radio 버튼으로 기준 변경 2021-03-17 */		
+		if(searchGubun==2){			
+			fn_currentListSearch();
+		} else{
+			fn_allListSearch();			
+		}
+		searchVal = $j("#search").val();
+	}
+	
+	/* 현재문서 검색*/
+	function fn_currentListSearch(){
+	
+		var selectedNode = $j('#listTree').jstree('get_selected')[0];
+		if(selectedNode != null && isCurrentDocType != 2){
+			isCurrentDocType = 2;
+			$j('#listTree').jstree('deselect_all');
+			$j('#listTree').jstree('select_node', selectedNode);
+		} else {
+			isCurrentDocType = 2;
+			viewDoc(currentDocValues.rcpNo, currentDocValues.dcmNo, currentDocValues.eleId, currentDocValues.offset, currentDocValues.length, currentDocValues.dtd);
+		}
+	}
+	
+    /* 전체문서 검색*/
+	function fn_allListSearch(){
+		viewDocAll(currentDocValues.rcpNo, currentDocValues.dcmNo, currentDocValues.eleId, currentDocValues.offset, currentDocValues.length, currentDocValues.dtd, '');
+	}
+	
+	function windowClose(){
+		if(isInApp()) {
+			if(navigator.userAgent.toLowerCase().indexOf('android') > -1) {
+				android_dart.appFinish();
+				window.close();
+			} else {
+				window.webkit.messageHandlers.DARTJS_APPFINISH.postMessage('');
+				window.close();
+			}
+		}else{
+			window.close();
+		}
+	}
+	
+	function goBookmark(to, from, toc) {
+		var isDirect = false;
+		$j('#ifrm').contents().find("a[name^=toc]").each(function() {
+			if (!isDirect) {
+				if ($j(this).text() == toc) {
+					isDirect = true;
+				}
+			}
+		});
+		if (isDirect) {
+			var bookmark = $j('#ifrm').contents().find("a[class="+to+"]").offset();
+			$j('#ifrm').contents().scrollTop(bookmark.top);
+		} else {
+			$j("#listTree ul li a").each(function() {
+				if ($j(this).text() == toc) {
+					$j(this).trigger("click");
+					
+					setTimeout(function() {
+						var bookmark = $j('#ifrm').contents().find("a[class="+to+"]").offset();
+						if (bookmark == null) {
+							$j('#ifrm').contents().scrollTop(0);
+						} else {
+							$j('#ifrm').contents().scrollTop(bookmark.top);
+						}
+					}, 500);
+				}
+			});
+		}
+	}
+	
+	function showPdfStopMsg(title, cont, type, type2){
+		var layerPopHtml = "";
+		layerPopHtml +='<div class="layerPop layerPopViewer" style="display:block; width:450px;">';
+		layerPopHtml +='	<div class="title">';
+		layerPopHtml +=		title ;
+		layerPopHtml +='		<a class="btnClose" onclick="closeWinCcommMsg(this)" href="javascript:void(0);">확인</a>';
+		layerPopHtml +='	</div>';
+		layerPopHtml +='	<div class="contViewer" id="commMsgCont" style="height:200px;">';
+		layerPopHtml +='      <div class="contWrap">';
+		layerPopHtml +=			cont;
+		layerPopHtml +='      </div>';
+		layerPopHtml +='	</div>';
+		layerPopHtml +='</div>';
+
+		$j('#winCommMsg').append(layerPopHtml);
+		$j('#winCommMsg').show();
+	}
+	
+	</script>
+	
+</head>
+
+<!-- <body style="overflow:hidden"> -->
+<body>
+<div class="loadingMask" id="loadingMask" style="display:none"></div>
+<div class="loadingWrap" id="loadingWrap" style="display:none">
+	<div class="loadingImg"></div>
+	<div class="loadingMessage">잠시만 기다려주세요.</div>
+</div>
+	<div class="wrapper">
+		<form name="fmove"  method="post" action="">
+		<input type="submit" style="display:none" name="goAction" />
+		</form>
+		<!-- viewerPop -->
+		<div class="viewerPop">
+			<!-- header -->
+			<div class="header">
+				<div class="top">
+					<h1 style="cursor:auto;"></h1>
+					
+						
+							
+						
+						
+						
+						
+					
+					
+					
+					
+					<div class="nameWrap"><span class="tagCom_kospi" title="유가증권시장">유</span>
+						<span onclick="openCorpInfoNew('00126380', 'winCorpInfo', '/dsae001/selectPopup.ax');" style="cursor:pointer;">삼성전자</span></div>
+					<div class="searchWrap">
+					    <span class="frmCheck">
+							<input type="radio" id="searchGubun1" name="searchGubun" value="2" title="현재목차" checked />
+							<label for="searchGubun1" title="현재목차" >현재목차</label>
+						</span>
+						<span class="frmCheck">	
+							<input type="radio" id="searchGubun2" name="searchGubun" value="1" title="전체문서" />
+							<label for="searchGubun2" title="전체문서" >전체문서</label>
+						</span>
+						<span class="search">
+							<label for="search">선택</label>
+							<input type="text" id="search" placeholder="검색어 입력" onkeypress="if(event.keyCode==13){fn_Search();}"/>
+							<button onclick="fn_Search();">검색</button>
+						</span>						
+						<button class="btnPrev" onclick="fn_prev();">이전</button>
+						<button class="btnNext" onclick="fn_next();">다음</button>		
+					</div>
+				</div>
+
+				<div class="bottom">
+					<div class="leftWrap">
+						<ul>
+							<li class="docLi">
+								<span class="frmSelect">
+									
+										<label for="family">본문</label>
+										<select class="w01" id="family" onchange="changeFamily(this.value)">
+											<option value="null">+본문선택+</option>
+											
+												
+												<option value="rcpNo=20221114001832" selected title="분기보고서">
+													
+														2022.11.14&nbsp;
+													
+													
+													
+													분기보고서
+												</option>
+											
+										</select>
+									
+								</span> 
+							</li>
+							<li class="docLi">
+								<span class="frmSelect">
+									<!-- 첨부문서 -->
+									<label for="att">첨부</label>
+									<select id="att" class="w01" onchange="changeAtt(this.value)">
+										<option value="null">+첨부선택+</option>
+										
+											
+											<option value="rcpNo=20221114001832&amp;dcmNo=8870998" >
+												2022.11.14&nbsp;
+												
+													
+													
+												
+												분기검토보고서
+											</option>
+										
+											
+											<option value="rcpNo=20221114001832&amp;dcmNo=8870999" >
+												2022.11.14&nbsp;
+												
+													
+													
+												
+												분기연결검토보고서
+											</option>
+										
+									</select>
+								</span> 
+							</li>
+							
+							
+							<li class="docLi">
+								<span class="frmSelect">
+										<select class="w01" id="history" onchange="changeHis(this.value)">
+											<option value="null" selected="selected">+직전 정기보고서 바로가기+</option>
+											
+												
+												<option value="rcpNo=20220816001711" title="반기보고서">
+													2022.08.16&nbsp;
+													반기보고서
+												</option>
+											
+												
+												<option value="rcpNo=20220516001751" title="분기보고서">
+													2022.05.16&nbsp;
+													분기보고서
+												</option>
+											
+												
+												<option value="rcpNo=20220308000798" title="사업보고서">
+													2022.03.08&nbsp;
+													사업보고서
+												</option>
+											
+										</select>
+								</span> 
+							</li>
+							
+							<li class="docLi_mob">
+								<span class="frmSelect">
+									<select id="doc" class="w01" onchange="changeFamily(this.value)">
+										<option value="null" selected>+문서 선택+</option>
+										<b><option value="null">-본문문서선택-</option></b>
+										
+											
+											<option value="rcpNo=20221114001832" title="분기보고서" style="color:blue">
+												
+													2022.11.14&nbsp;
+												
+												
+												
+												분기보고서
+											</option>
+										
+										<option value="null">-첨부문서선택-</option>
+										
+											
+											<option value="rcpNo=20221114001832&amp;dcmNo=8870998" style="">
+												2022.11.14&nbsp;
+												
+													
+													
+												
+												분기검토보고서
+											</option>
+										
+											
+											<option value="rcpNo=20221114001832&amp;dcmNo=8870999" style="">
+												2022.11.14&nbsp;
+												
+													
+													
+												
+												분기연결검토보고서
+											</option>
+										
+										
+										
+										<option value="null">-직전 정기보고서 바로가기-</option>
+										
+											
+											<option value="rcpNo=20220816001711" title="반기보고서">
+											2022.08.16&nbsp;
+												반기보고서
+											</option>
+										
+											
+											<option value="rcpNo=20220516001751" title="분기보고서">
+											2022.05.16&nbsp;
+												분기보고서
+											</option>
+										
+											
+											<option value="rcpNo=20220308000798" title="사업보고서">
+											2022.03.08&nbsp;
+												사업보고서
+											</option>
+										
+									</select>
+								</span> 
+							</li>
+						</ul>
+					</div>
+					<div class="rightWrap">	
+							
+							<button class="btnDown" onclick="openPdfDownload('20221114001832', '8870996');">다운로드</button>
+						
+						<button class="btnPrint" onclick="printDoc();" id="print">인쇄</button>
+						<button class="btnSearch" onclick="windowClose();">닫기</button>	
+					</div>
+				</div>
+			</div>
+			<!-- //header -->
+
+			<!-- contentsWrap -->
+			<div id="contentsWrapDiv" class="contentsWrap">
+				<!-- leftPanelWrap -->
+				<div class="leftPanelWrap">
+					<div class="headerWrap">문서목차</div>
+					<div class="leftPanel">
+						<ul id="listTree">
+						</ul>
+					</div>
+				</div>
+				<!-- //leftPanelWrap -->
+
+				<!-- contents -->
+				<div class="contents" style="display:block;">
+					<div class="btn_wide_on" style="display:block;" onclick="fn_toggleWide(this)" id="wideBtn"></div>
+					<div class="viewWrap">
+								
+						<div class="contWrap">
+							<iframe id="ifrm" frameborder="0" scrolling="auto" style="width: 100%; height : 101%; margin: 0; padding: 0" title="tailFrame" onload="fn_iframeLoaded()"></iframe>
+						</div>
+					</div>
+				</div>
+				<!-- contents -->
+			</div>
+			<!-- //contentsWrap -->
+		</div>
+	</div>
+	<div id="pdfStopMsg" style="position: absolute; left: -1000px; top: -1000px; visibility: hidden;"></div>
+	
+
+<!-- layer popup wrap -->
+<div id="winCommMsg" style="display:none">
+	<div class="mask" style="display:block"></div>
+	<!-- layer popup wrap -->
+</div>
+
+	
+
+<script type="text/javascript">
+function openReportViewerEng(rcpNo, dcmNo){
+	var url = "/dsbh001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+
+	var size = getOpenSize(1024, 768);
+	window.open(url, rcpNo, size+",resizable=yes");
+	$j("#r_"+rcpNo).css("color","#cd0093");
+}
+
+var win_num = 1;
+function openReportViewer(rcpNo, dcmNo){
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+
+	var size = getOpenSize(1200, 810);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	if (dcmNo) {
+		$j("#r_"+rcpNo+dcmNo).css("color","#cd0093");
+	}else{
+		$j("#r_"+rcpNo).css("color","#cd0093");
+	}
+}
+
+function openReportViewerParam(rcpNo, dcmNo, params){
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+	if (params) {
+		//<![CDATA[
+		url += params;
+		//]]>
+	}
+
+	var size = getOpenSize(1200, 810);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	if (dcmNo) {
+		$j("#r_"+rcpNo+dcmNo).css("color","#cd0093");
+	}else{
+		$j("#r_"+rcpNo).css("color","#cd0093");
+	}
+}
+
+function openReportListViewer(rcpNo, dcmNo, eleId){
+
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+		if(eleId) {
+			url += "&eleId=" + eleId;
+		}
+	}
+
+	var size = getOpenSize(1200, 810);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	if (dcmNo) {
+		$j("#r_"+rcpNo+dcmNo).css("color","#cd0093");
+	}else{
+		$j("#r_"+rcpNo).css("color","#cd0093");
+	}
+}
+
+/*
+ * 통합검색용 문서뷰어 팝업 호출
+ * nrseo 2010. 10. 20
+ * 2016.09.30 jsp에 직접 명시 하여 미사용(DSAB007A.jsp)
+ * - a:visited 미작동으로 인한 조치
+ */
+function openReportViewerKeyword(rcpNo, dcmNo, keyword){
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+	//<![CDATA[
+	url += "&keyword=" + encodeURIComponent(keyword);
+	//]]>
+
+	var size = getOpenSize(1024, 768);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	if (dcmNo) {
+		$j("#r_"+rcpNo+dcmNo).css("color","#cd0093");
+	}else{
+		$j("#r_"+rcpNo).css("color","#cd0093");
+	}
+}
+
+/*
+ * 메인화면 전용
+ */
+function openReportViewerMain(rcpNo, dcmNo){
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+
+	var size = getOpenSize(1200, 810);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+}
+
+function openXbrlViewer(rcpNo, dcmNo){
+	var url = "/dsbh002/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+
+	var size = getOpenSize(1024, 768);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	/* j("#r_"+rcpNo)가
+	   ie8,9,11에서 클릭시 css변경 미처리로 위치 변경
+	   ie10 버전에서 미작동으로 본문에 직접 반영(DSBD001A.jsp, DSBD002A.jsp)	 */
+	//$j("#r_"+rcpNo).css("color","#cd0093");
+}
+
+function openHelp(menu) {
+	var url = "/guide/main.jsp";
+	if (menu) {
+		url += "?menu=" + menu;
+	}
+	var size = getOpenSize(1100, 761);
+	var win = window.open(url, "DartGuide", size + ",resizable=yes,scrollbars=no");
+	if (win == null) {
+		alert("팝업차단을 해제하시기 바랍니다.");
+	} else {
+		win.focus();
+	}
+}
+
+</script>
+<form name="reportForm" method="post" action="/dsaf001/main.do">
+	<input type="hidden" name="rcpNo" />
+	<input type="hidden" name="dcmNo" />
+	<input type="hidden" name="keyword" />
+	<input type="submit" style="display:none;" />
+</form>
+</body>
+</html>

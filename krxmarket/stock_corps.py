@@ -31,6 +31,9 @@ class StockCorps:
                 krx_corps[stock_code].corp_code = dart_info['corp_code']
                 self._corps[stock_code] = krx_corps[stock_code]
     
+    def search_by_stock_code(self, stock_code: str):
+        return self._corps.get(stock_code)
+    
     @property
     def corps(self):
         return self._corps

@@ -1,4 +1,7 @@
 from typing import Literal
+import copy
+
+from bs4 import BeautifulSoup
 
 from .status import check_status
 from .auth import get_api_key
@@ -14,15 +17,22 @@ class Report:
     _DOWNLOAD_URL_ = _DART_URL_ + '/pdf/download/main.do'
 
     def __init__(self, **kwargs):
-        self.rcp_no = (kwargs['recpt_no'] if 'recpt_no' in kwargs
+        print('kwargs', kwargs)
+        self.rcp_no = (kwargs['rcept_no'] if 'rcept_no' in kwargs
                        else kwargs.get('rcp_no'))
         if self.rcp_no is None:
             raise ValueError('no rcp number in report')
         self.dcm_no = kwargs.get('dcm_no')
+        self.info = copy.deepcopy(kwargs)
         self.load()
     
     def load(self):
-        pass
+        payload = {'rcpNo': self.rcp_no}
+        resp = request.get(url=Report._REPORT_URL_, payload=payload, referer=Report._DART_URL_)
+        self.html = BeautifulSoup(resp.text, 'html.parser')
+        with open(self.rcp_no + '.html', 'w') as f:
+            f.write(resp.text)
+
 
 
 class SearchResult:
