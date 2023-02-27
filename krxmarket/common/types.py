@@ -31,6 +31,20 @@ class KrxCorp:
         self.corp_code = corp_code
         self.update_date = update_date
 
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'corp_code': self.corp_code,
+            'stock_code': self.stock_code,
+            'sectors': self.sectors,
+            'products': self.products,
+            'market_type': self.short_market_type,
+            'listed_date': self.listed_date,
+            'is_halt': self.is_halt,
+            'halt_reason': self.halt_reason,
+            'update_date': self.update_date
+        }
+
     @property
     def short_market_type(self):
         if self.market_type == MarketType.KOSPI:
