@@ -1,37 +1,37 @@
-M111000	Numeric	천원	자산총계
-M111100	Numeric	천원	유동자산
-M111600	Numeric	천원	비유동자산
-M113000	Numeric	천원	부채총계
-M113100	Numeric	천원	유동부채
+M111000	Numeric	천원	자산총계    ifrs_Assets
+M111100	Numeric	천원	유동자산    ifrs_CurrentAssets
+M111600	Numeric	천원	비유동자산  ifrs_NoncurrentAssets
+M113000	Numeric	천원	부채총계    ifrs_Liabilities
+M113100	Numeric	천원	유동부채    ifrs_CurrentLiabilities
 M113800	Numeric	천원	이자발생부채 : 단기사채+단기차입금+유동성장기부채+단기금융부채(단기매매금융부채+당기손익인식+금융리스부채+단기상환우선주)+사채+장기차입금+장기금융부채
 M113900	Numeric	천원	순부채 : 사채+장기차입금+장기금융부채+단기사채+단기차입금+유동성장기부채+단기금융부채-단기금융자산-현금및현금성자산
-M113500	Numeric	천원	비유동부채
-M115000	Numeric	천원	자본총계
+M113500	Numeric	천원	비유동부채  ifrs_NoncurrentLiabilities
+M115000	Numeric	천원	자본총계    ifrs_Equity
 M115020	Numeric	천원	자본총계(지배) : 자본총계(지배주주지분)
-M115100	Numeric	천원	자본금
-M115500	Numeric	천원	자본잉여금
+M115100	Numeric	천원	자본금      자본금
+M115500	Numeric	천원	자본잉여금      
 M115600	Numeric	천원	이익잉여금
 M115850	Numeric	천원	비지배주주지분
-M121000	Numeric	천원	매출액
-M121100	Numeric	천원	매출원가
-M121200	Numeric	천원	매출총이익
-M121300	Numeric	천원	판매비와관리비
-M121500	Numeric	천원	영업이익 : 매출총이익-판매비와관리비
-M121540	Numeric	천원	금융수익
-M121550	Numeric	천원	금융비용
-M121570	Numeric	천원	기타영업외수익
-M121580	Numeric	천원	기타영업외비용
+M121000	Numeric	천원	매출액      ifrs_Revenue
+M121100	Numeric	천원	매출원가    ifrs_CostOfSales
+M121200	Numeric	천원	매출총이익  ifrs_GrossProfit
+M121300	Numeric	천원	판매비와관리비  dart_TotalSellingGeneralAdministrativeExpenses
+M121500	Numeric	천원	영업이익 : 매출총이익-판매비와관리비    
+M121540	Numeric	천원	금융수익    ifrs_FinanceIncome
+M121550	Numeric	천원	금융비용    ifrs_FinanceCosts
+M121570	Numeric	천원	기타영업외수익  dart_OtherGains
+M121580	Numeric	천원	기타영업외비용  dart_OtherLosses
 M122100	Numeric	천원	감가상각비(판관비) : 감가상각비+개발비상각+기타무형자산상각비
-M122500	Numeric	천원	세전계속사업이익
-M122700	Numeric	천원	당기순이익
+M122500	Numeric	천원	세전계속사업이익    ifrs_ProfitLossFromContinuingOperations
+M122700	Numeric	천원	당기순이익  ifrs_ProfitLoss
 M122710	Numeric	천원	당기순이익(지배) : 지배주주지분의 당기순이익
 M122720	Numeric	천원	당기순이익(비지배) : 비지배주주지분의 당기순이익
-M131000	Numeric	천원	영업활동으로인한현금흐름
+M131000	Numeric	천원	영업활동으로인한현금흐름    ifrs_CashFlowsFromUsedInOperatingActivities
 M132020	Numeric	천원	감가상각비(현금흐름표) : 현금흐름표상의 감가상각비
 M131025	Numeric	천원	운전자본증감 : 운전자본의증감
-M132000	Numeric	천원	투자활동으로인한현금흐름
+M132000	Numeric	천원	투자활동으로인한현금흐름    ifrs_CashflowsFromUsedInInvestingActivities
 M132010	Numeric	천원	CAPEX
-M133000	Numeric	천원	재무활동으로인한현금흐름
+M133000	Numeric	천원	재무활동으로인한현금흐름    ifrs_CashFlowsFromUsedInFinancingActivities
 M134000	Numeric	천원	영업투자재무활동기타현금흐름
 M134010	Numeric	천원	현금의증가
 M124155	Numeric	천원	Free Cash Flow2 : 영업활동으로인한현금흐름-유형자산의증가

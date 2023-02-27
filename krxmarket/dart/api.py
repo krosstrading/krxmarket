@@ -1,11 +1,11 @@
 from typing import Literal
 import copy
-
-from bs4 import BeautifulSoup
+import tempfile
 
 from .status import check_status
 from .auth import get_api_key
-from .request import api_request
+from .request import api_request, download_xbrl
+from ..common.xbrl.xbrl import Xbrl
 from ..common.webrequest import request
 from ..common.file import read_file_from_zip
 from ..common.types import KrxCorp
@@ -17,22 +17,23 @@ class Report:
     _DOWNLOAD_URL_ = _DART_URL_ + '/pdf/download/main.do'
 
     def __init__(self, **kwargs):
-        print('kwargs', kwargs)
         self.rcp_no = (kwargs['rcept_no'] if 'rcept_no' in kwargs
                        else kwargs.get('rcp_no'))
         if self.rcp_no is None:
             raise ValueError('no rcp number in report')
         self.dcm_no = kwargs.get('dcm_no')
         self.info = copy.deepcopy(kwargs)
-        self.load()
-    
-    def load(self):
-        payload = {'rcpNo': self.rcp_no}
-        resp = request.get(url=Report._REPORT_URL_, payload=payload, referer=Report._DART_URL_)
-        self.html = BeautifulSoup(resp.text, 'html.parser')
-        with open(self.rcp_no + '.html', 'w') as f:
-            f.write(resp.text)
+        print(self.info)
+        self.xbrl = None
 
+    def load_xbrl(self):
+        with tempfile.TemporaryDirectory() as path:
+            try:
+                file_uri = download_xbrl(path=path, rcept_no=self.rcp_no)
+                if len(file_uri) > 0:
+                    self.xbrl = Xbrl(file_uri)
+            except Exception:
+                pass
 
 
 class SearchResult:

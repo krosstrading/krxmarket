@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 import re
-
 from urllib.parse import urljoin
 
 from .auth import get_api_key
 from .status import check_status
-
+from ..common.file import unzip_xbrl
 from ..common.webrequest import request
 
 
@@ -125,4 +124,37 @@ def api_request(
 
     # Status Code Check
     check_status(**dataset)
+    
     return dataset
+
+
+def download_xbrl(path: str, rcept_no: str, reprt_code: str = None) -> str:
+    """ XBRL 파일 다운로드
+
+    Parameters
+    ----------
+    path: str
+        Download Path
+    rcept_no: str
+        접수번호
+    reprt_code: str, optinal
+        1분기보고서 : 11013 반기보고서 : 11012 3분기보고서 : 11014 사업보고서 : 11011
+
+    Returns
+    -------
+    str
+        xbrl file path
+
+    """
+    url = 'https://opendart.fss.or.kr/api/fnlttXbrl.xml'
+
+    payload = {
+        'crtfc_key': get_api_key(),
+        'rcept_no': rcept_no,
+        'reprt_code': reprt_code
+    }
+
+    # Request Download
+    file_uri = request.download(url=url, payload=payload)
+    # Unzip File in User Cache Folder
+    return unzip_xbrl(path, file_uri)
