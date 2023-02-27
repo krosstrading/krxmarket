@@ -1,4 +1,9 @@
+import logging
+from datetime import datetime
 from krxmarket import fnltt_singl_acnt_all
+
+
+LOGGER = logging.getLogger(__name__)
 
 
 def _fv(item: dict, key: str):
@@ -6,7 +11,7 @@ def _fv(item: dict, key: str):
     return value
 
 
-def get_performance(corp_code: str):
+def get_performance(corp_code: str, start_year: int) -> list:
     """
     json structure
     [
@@ -26,12 +31,13 @@ def get_performance(corp_code: str):
         }
     ]
     """
-    year = 2016
+    year = start_year
+    current_year = datetime.now().year
     # 1분기보고서:11013, 반기보고서:11012, 3분기보고서:11014, 사업보고서 : 11011
     report_seq = ['11013', '11012', '11014', '11011']
     report_all = []
-    has_data = True
-    while has_data:
+
+    while year <= current_year:
         for i, seq in enumerate(report_seq):
             result = {
                 'year': str(year),
@@ -54,9 +60,11 @@ def get_performance(corp_code: str):
                             'account_id': _fv(item, 'account_id'),
                             'rcept_no': _fv(item, 'rcept_no')
                         })
-            except Exception:
-                has_data = False
-                break
+            except Exception as ex:
+                LOGGER.warning('skip %d, quarter: %d, %s',
+                               year, i + 1, str(ex))
+                continue
+                
             report_all.append(result)
         year += 1
 
@@ -64,7 +72,7 @@ def get_performance(corp_code: str):
 
 
 if __name__ == '__main__':
-    json_content = get_performance('00126380')
+    json_content = get_performance('00126380', 2022)
     import json
     with open('data.json', 'w') as f:
         json.dump(json_content, f)

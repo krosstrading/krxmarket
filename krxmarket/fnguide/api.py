@@ -109,7 +109,7 @@ async def get_performance(code, is_quarter: bool = True):
     url = 'https://www.fnspace.com/Api/FinanceApi'
     dt = datetime.now().astimezone(pytz.timezone("Asia/Seoul"))
     params = {
-        'key': os.getenv('FN_GUIDE_KEY'), 
+        'key': os.getenv('FN_GUIDE_KEY'),
         'code': code.upper(),
         'format': 'json',
         # 회계기준. 주재무제표(M)/연결(C)/별도(I) - 연결은 자본적 결합회사까지 합산

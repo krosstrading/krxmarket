@@ -1,12 +1,10 @@
 from krxmarket import StockCorps
-from krxmarket import disclosure_list
-from krxmarket.common.xbrl.xbrl import Xbrl
+from krxmarket.performance import get_performance
 
 
 if __name__ == '__main__':
-    corps = StockCorps()
-    samsung = corps.search_by_stock_code('005930')
-    result = disclosure_list(samsung, '20220101', pblntf_detail_ty='A003')
-    report: Xbrl = result.pop(0)
-    if report.xbrl:
-        print(report.xbrl.get_fs().to_DataFrame().to_excel('output.xlsx'))
+    corps = StockCorps().corps
+    idx = 0
+    for stock_code, corp in corps.items():
+        print(corp.name, idx + 1, '/', len(corps))
+        get_performance(corp.corp_code)

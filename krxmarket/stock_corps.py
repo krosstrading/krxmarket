@@ -17,7 +17,7 @@ class StockCorps:
         self._corps: Dict[str, KrxCorp] = {}
         self.fetch_info()
 
-    def fetch_info(self):
+    def fetch_info(self) -> None:
         krx_corps = get_krx_all()
         for dart_info in get_corp_code():
             stock_code = dart_info['stock_code']
