@@ -54,9 +54,8 @@ def get_performance(corp_code: str):
                             'account_id': _fv(item, 'account_id'),
                             'rcept_no': _fv(item, 'rcept_no')
                         })
-            except Exception as ex:
+            except Exception:
                 has_data = False
-                print('no data on', year, seq, ex)
                 break
             report_all.append(result)
         year += 1

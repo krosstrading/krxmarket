@@ -23,7 +23,20 @@ class Report:
             raise ValueError('no rcp number in report')
         self.dcm_no = kwargs.get('dcm_no')
         self.info = copy.deepcopy(kwargs)
-        print(self.info)
+        """
+        info example
+        {
+            'corp_code': '00126380',
+            'corp_name': '삼성전자',
+            'stock_code': '005930',
+            'corp_cls': 'Y',
+            'report_nm': '기타경영사항(자율공시)',
+            'rcept_no': '20230214801207',
+            'flr_nm': '삼성전자',
+            'rcept_dt': '20230214',
+            'rm': '유'
+        }
+        """
         self.xbrl = None
 
     def load_xbrl(self):
