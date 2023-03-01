@@ -13,7 +13,11 @@ def _fv(item: dict, key: str):
     return value
 
 
-def get_performance(corp_code: str, start_year: int) -> list:
+def get_performance(
+    corp_code: str,
+    start_year: int,
+    db_latest: str = ''
+) -> list:
     """
     json structure
     [
@@ -38,6 +42,10 @@ def get_performance(corp_code: str, start_year: int) -> list:
     # 1분기보고서:11013, 반기보고서:11012, 3분기보고서:11014, 사업보고서 : 11011
     report_seq = ['11013', '11012', '11014', '11011']
     report_all = []
+    if len(db_latest) < 5:
+        db_latest = 20154  # 2015 q4
+    else:
+        db_latest = int(db_latest)
 
     while year <= current.year:
         for i, seq in enumerate(report_seq):
@@ -45,6 +53,8 @@ def get_performance(corp_code: str, start_year: int) -> list:
             # 현재가 4월 1일이 지나지 않으면 skip
             expected_end_day = datetime(year, (i + 1) * 3, 1) + relativedelta(months=1)
             if current < expected_end_day:
+                continue
+            elif int(str(year) + str(i + 1)) <= db_latest:
                 continue
 
             result = {
