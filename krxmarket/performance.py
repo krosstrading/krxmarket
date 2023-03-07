@@ -63,28 +63,36 @@ def get_performance(
                 'rcept_no': '',
                 'data': {}
             }
+            
+            report = None
             try:
                 report = fnltt_singl_acnt_all(corp_code, str(year), seq, 'CFS')
-                if report['status'] == '000' and 'list' in report:
-                    items = _fv(report, 'list')
-                    for item in items:
-                        sj_div = _fv(item, 'sj_div')
-                        if sj_div not in result['data']:
-                            result['data'][sj_div] = []
-                        
-                        if len(result['rcept_no']) == 0 and 'rcept_no' in item:
-                            result['rcept_no'] = _fv(item, 'rcept_no')
+            except NoDataReceived:
+                LOGGER.warning('no data CFS %d, quarter: %d', year, i + 1)
+            
+            if report is None:
+                try:
+                    report = fnltt_singl_acnt_all(corp_code, str(year), seq, 'OFS')
+                except NoDataReceived:
+                    LOGGER.warning('both CFS and OFS not exist %d, quarter: %d', year, i + 1)
+                    continue
 
-                        result['data'][sj_div].append({
-                            'account_nm': _fv(item, 'account_nm'),
-                            'frmtrm_amount': _fv(item, 'frmtrm_amount'),
-                            'thstrm_amount': _fv(item, 'thstrm_amount'),
-                            'account_id': _fv(item, 'account_id')
-                        })
-            except NoDataReceived as ex:
-                LOGGER.warning('skip %d, quarter: %d, %s',
-                               year, i + 1, str(ex))
-                continue
+            if report['status'] == '000' and 'list' in report:
+                items = _fv(report, 'list')
+                for item in items:
+                    sj_div = _fv(item, 'sj_div')
+                    if sj_div not in result['data']:
+                        result['data'][sj_div] = []
+                    
+                    if len(result['rcept_no']) == 0 and 'rcept_no' in item:
+                        result['rcept_no'] = _fv(item, 'rcept_no')
+
+                    result['data'][sj_div].append({
+                        'account_nm': _fv(item, 'account_nm'),
+                        'frmtrm_amount': _fv(item, 'frmtrm_amount'),
+                        'thstrm_amount': _fv(item, 'thstrm_amount'),
+                        'account_id': _fv(item, 'account_id')
+                    })
                 
             report_all.append(result)
         year += 1

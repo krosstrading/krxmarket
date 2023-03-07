@@ -87,7 +87,7 @@ class Xbrl:
 
     def _to_info_DataFrame(self, code: str, lang: str = 'ko') -> DataFrame:
         table = self.get_table_by_code(code)
-        return table.to_DataFrame(lang=lang, show_class=False, show_concept=False, separator=False)
+        return table.to_DataFrame(lang=lang, show_class=False, show_concept=True, separator=False)
     
     def get_document_information(self, lang: str = 'ko') -> DataFrame:
         return self._to_info_DataFrame('d999001', lang=lang)

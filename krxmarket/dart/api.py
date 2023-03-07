@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import List, Literal
 import copy
 import tempfile
 
@@ -38,6 +38,11 @@ class Report:
         }
         """
         self.xbrl = None
+
+    def has_revision(self):
+        if 'rm' in self.info and '정' in self.info['rm']:
+            return True
+        return False
 
     def load_xbrl(self):
         with tempfile.TemporaryDirectory() as path:
@@ -179,7 +184,7 @@ def get_major_holder_changes(
     return api_request(
         path=path,
         corp_code=corp_code,
-    )
+    )    
 
 
 def disclosure_list(
@@ -192,7 +197,7 @@ def disclosure_list(
     sort: Literal['date', 'rpt', 'crp'] = 'date',
     sort_mth: Literal['desc', 'asc'] = 'desc',
     page_no: int = 1,
-    page_count: int = 10
+    page_count: int = 100
 ) -> SearchResult:
     """ 
     개발가이드 -> 공시정보 -> 공시 검색
@@ -243,6 +248,28 @@ def disclosure_list(
     dataset = resp.json()
     check_status(**dataset)
     return SearchResult(dataset)
+
+
+def performance_list(
+    krx_corp: KrxCorp,
+    start_time: str = None,
+    end_time: str = None
+) -> List[Report]:
+    report_types = ('A001', 'A002', 'A003')
+    reports = {}
+    for report_type in report_types:
+        result = disclosure_list(krx_corp,
+                                 start_time,
+                                 end_time,
+                                 page_count=100,
+                                 pblntf_detail_ty=report_type)
+        for report in result.report_list:
+            if report.rcp_no in reports or report.has_revision():
+                continue
+            reports[report.rcp_no] = report
+    report_list = list(reports.values())
+    report_list.sort(key=lambda r: int(r.rcp_no))
+    return report_list
 
 
 def fnltt_singl_acnt(
